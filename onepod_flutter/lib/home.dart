@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("App Bar"),
       ),
-      body: Container(
+      body: Center(
         child: Column(
           children: [
             ElevatedButton(
