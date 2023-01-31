@@ -10,7 +10,9 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/category_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
 import '../endpoints/todo_endpoint.dart' as _i4;
-import 'package:serverpod_auth_server/module.dart' as _i5;
+import 'package:onepod_server/src/generated/category.dart' as _i5;
+import 'package:onepod_server/src/generated/todo.dart' as _i6;
+import 'package:serverpod_auth_server/module.dart' as _i7;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -56,7 +58,53 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['name'],
           ),
-        )
+        ),
+        'getCategories': _i1.MethodConnector(
+          name: 'getCategories',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['category'] as _i2.CategoryEndpoint)
+                  .getCategories(session),
+        ),
+        'addCategory': _i1.MethodConnector(
+          name: 'addCategory',
+          params: {
+            'category': _i1.ParameterDescription(
+              name: 'category',
+              type: _i1.getType<_i5.Category>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['category'] as _i2.CategoryEndpoint).addCategory(
+            session,
+            params['category'],
+          ),
+        ),
+        'getCategoryById': _i1.MethodConnector(
+          name: 'getCategoryById',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['category'] as _i2.CategoryEndpoint).getCategoryById(
+            session,
+            params['id'],
+          ),
+        ),
       },
     );
     connectors['example'] = _i1.EndpointConnector(
@@ -104,9 +152,36 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['name'],
           ),
-        )
+        ),
+        'getTodos': _i1.MethodConnector(
+          name: 'getTodos',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['todo'] as _i4.TodoEndpoint).getTodos(session),
+        ),
+        'addTodo': _i1.MethodConnector(
+          name: 'addTodo',
+          params: {
+            'todo': _i1.ParameterDescription(
+              name: 'todo',
+              type: _i1.getType<_i6.Todo>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['todo'] as _i4.TodoEndpoint).addTodo(
+            session,
+            params['todo'],
+          ),
+        ),
       },
     );
-    modules['serverpod_auth'] = _i5.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i7.Endpoints()..initializeEndpoints(server);
   }
 }

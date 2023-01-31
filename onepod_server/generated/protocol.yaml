@@ -1,6 +1,11 @@
 category:
   - hello:
+  - getCategories:
+  - addCategory:
+  - getCategoryById:
 example:
   - hello:
 todo:
   - hello:
+  - getTodos:
+  - addTodo:

@@ -26,7 +26,7 @@ class Category extends _i1.SerializableEntity {
       title:
           serializationManager.deserialize<String>(jsonSerialization['title']),
       todos: serializationManager
-          .deserialize<List<_i2.Category>?>(jsonSerialization['todos']),
+          .deserialize<List<_i2.Todo>?>(jsonSerialization['todos']),
       created_at: serializationManager
           .deserialize<DateTime>(jsonSerialization['created_at']),
     );
@@ -39,7 +39,7 @@ class Category extends _i1.SerializableEntity {
 
   String title;
 
-  List<_i2.Category>? todos;
+  List<_i2.Todo>? todos;
 
   DateTime created_at;
 

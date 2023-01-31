@@ -8,9 +8,11 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:serverpod_auth_client/module.dart' as _i3;
-import 'dart:io' as _i4;
-import 'protocol.dart' as _i5;
+import 'package:onepod_client/src/protocol/category.dart' as _i3;
+import 'package:onepod_client/src/protocol/todo.dart' as _i4;
+import 'package:serverpod_auth_client/module.dart' as _i5;
+import 'dart:io' as _i6;
+import 'protocol.dart' as _i7;
 
 class _EndpointCategory extends _i1.EndpointRef {
   _EndpointCategory(_i1.EndpointCaller caller) : super(caller);
@@ -22,6 +24,27 @@ class _EndpointCategory extends _i1.EndpointRef {
         'category',
         'hello',
         {'name': name},
+      );
+
+  _i2.Future<List<_i3.Category>> getCategories() =>
+      caller.callServerEndpoint<List<_i3.Category>>(
+        'category',
+        'getCategories',
+        {},
+      );
+
+  _i2.Future<void> addCategory(_i3.Category category) =>
+      caller.callServerEndpoint<void>(
+        'category',
+        'addCategory',
+        {'category': category},
+      );
+
+  _i2.Future<_i3.Category?> getCategoryById(int id) =>
+      caller.callServerEndpoint<_i3.Category?>(
+        'category',
+        'getCategoryById',
+        {'id': id},
       );
 }
 
@@ -49,24 +72,37 @@ class _EndpointTodo extends _i1.EndpointRef {
         'hello',
         {'name': name},
       );
+
+  _i2.Future<List<_i4.Todo>> getTodos() =>
+      caller.callServerEndpoint<List<_i4.Todo>>(
+        'todo',
+        'getTodos',
+        {},
+      );
+
+  _i2.Future<void> addTodo(_i4.Todo todo) => caller.callServerEndpoint<void>(
+        'todo',
+        'addTodo',
+        {'todo': todo},
+      );
 }
 
 class _Modules {
   _Modules(Client client) {
-    auth = _i3.Caller(client);
+    auth = _i5.Caller(client);
   }
 
-  late final _i3.Caller auth;
+  late final _i5.Caller auth;
 }
 
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i4.SecurityContext? context,
+    _i6.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i5.Protocol(),
+          _i7.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {

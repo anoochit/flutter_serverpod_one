@@ -1,5 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 
+import '../generated/protocol.dart';
+
 // This is an example endpoint of your server. It's best practice to use the
 // `Endpoint` ending of the class name, but it will be removed when accessing
 // the endpoint from the client. I.e., this endpoint can be accessed through
@@ -17,5 +19,23 @@ class CategoryEndpoint extends Endpoint {
   // passwords, and information about the request being made to the server.
   Future<String> hello(Session session, String name) async {
     return 'Hello $name';
+  }
+
+  Future<List<Category>> getCategories(Session session) async {
+    return await Category.find(session);
+  }
+
+  Future<void> addCategory(Session session, Category category) async {
+    return await Category.insert(session, category);
+  }
+
+  Future<Category?> getCategoryById(Session session, int id) async {
+    var category = await Category.findById(session, id);
+    var todos = await Todo.find(
+      session,
+      where: (t) => t.categoryId.equals(category!.id),
+    );
+    category!.todos = todos;
+    return category;
   }
 }

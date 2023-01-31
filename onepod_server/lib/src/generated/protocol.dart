@@ -12,8 +12,10 @@ import 'category.dart' as _i2;
 import 'example.dart' as _i3;
 import 'todo.dart' as _i4;
 import 'protocol.dart' as _i5;
-import 'package:serverpod_auth_server/module.dart' as _i6;
-import 'package:serverpod/protocol.dart' as _i7;
+import 'package:onepod_server/src/generated/category.dart' as _i6;
+import 'package:onepod_server/src/generated/todo.dart' as _i7;
+import 'package:serverpod_auth_server/module.dart' as _i8;
+import 'package:serverpod/protocol.dart' as _i9;
 export 'category.dart';
 export 'example.dart';
 export 'todo.dart'; // ignore_for_file: equal_keys_in_map
@@ -54,16 +56,24 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i4.Todo?>()) {
       return (data != null ? _i4.Todo.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<List<_i5.Category>?>()) {
+    if (t == _i1.getType<List<_i5.Todo>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i5.Category>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i5.Todo>(e)).toList()
           : null) as dynamic;
     }
+    if (t == List<_i6.Category>) {
+      return (data as List).map((e) => deserialize<_i6.Category>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i7.Todo>) {
+      return (data as List).map((e) => deserialize<_i7.Todo>(e)).toList()
+          as dynamic;
+    }
     try {
-      return _i6.Protocol().deserialize<T>(data, t);
+      return _i8.Protocol().deserialize<T>(data, t);
     } catch (_) {}
     try {
-      return _i7.Protocol().deserialize<T>(data, t);
+      return _i9.Protocol().deserialize<T>(data, t);
     } catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -71,7 +81,7 @@ class Protocol extends _i1.SerializationManagerServer {
   @override
   String? getClassNameForObject(Object data) {
     String? className;
-    className = _i6.Protocol().getClassNameForObject(data);
+    className = _i8.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -91,7 +101,7 @@ class Protocol extends _i1.SerializationManagerServer {
   dynamic deserializeByClassName(Map<String, dynamic> data) {
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i6.Protocol().deserializeByClassName(data);
+      return _i8.Protocol().deserializeByClassName(data);
     }
     if (data['className'] == 'Category') {
       return deserialize<_i2.Category>(data['data']);
@@ -108,13 +118,13 @@ class Protocol extends _i1.SerializationManagerServer {
   @override
   _i1.Table? getTableForType(Type t) {
     {
-      var table = _i6.Protocol().getTableForType(t);
+      var table = _i8.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }
     }
     {
-      var table = _i7.Protocol().getTableForType(t);
+      var table = _i9.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }

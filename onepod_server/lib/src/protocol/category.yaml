@@ -10,7 +10,7 @@ table: category
 # for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
 fields:
   title: String
-  todos: List<Category>?, api
+  todos: List<Todo>?, api
   created_at: DateTime
 indexes:
   category_title_idx:
