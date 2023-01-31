@@ -1,0 +1,18 @@
+# Name of the class to generate.
+class: Todo
+
+# Add the table key, if this class represents a row in the database.
+table: todo
+
+# The fields (and columns if connected to the database) of the class. Supported
+# types are `bool`, `int`, `double`, `String`, `DateTime`, and any other
+# generated classes. You can also add lists of objects and types have support
+# for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
+fields:
+  title: String
+  is_complete: bool
+  categoryId: int, parent=category
+  created_at: DateTime
+indexes:
+  todo_title_idx:
+    fields: title
